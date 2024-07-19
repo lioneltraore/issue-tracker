@@ -3,17 +3,20 @@ import { Component, OnInit } from '@angular/core';
 import { IssuesService } from '../../services/issues.service';
 import { Issue } from '../../model/issue';
 import { ClarityModule } from '@clr/angular';
+import { CommonModule } from '@angular/common';
+import { IssueReportComponent } from '../issue-report/issue-report.component';
 
 @Component({
   selector: 'app-issue-list',
   standalone: true,
-  imports: [ClarityModule],
+  imports: [ClarityModule, CommonModule, IssueReportComponent],
   templateUrl: './issue-list.component.html',
   styleUrl: './issue-list.component.css'
 })
 export class IssueListComponent implements OnInit {
 
   issues: Issue[] = [];
+  showReportIssue = false;
 
   constructor(private issuesService: IssuesService) {}
 
@@ -23,6 +26,11 @@ export class IssueListComponent implements OnInit {
 
   getPendingIssues() {
     this.issues = this.issuesService.getPendingIssues();
+  }
+
+  onCloseReport() {
+    this.showReportIssue = false;
+    this.getPendingIssues();
   }
 
 }
