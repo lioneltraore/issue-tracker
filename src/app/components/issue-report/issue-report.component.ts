@@ -13,10 +13,12 @@ import { CommonModule } from '@angular/common';
   templateUrl: './issue-report.component.html',
   styleUrl: './issue-report.component.css'
 })
-export class IssueReportComponent {
+export class IssueReportComponent implements OnInit{
 
   @Output()
   formClose = new EventEmitter();
+
+  suggestions: Issue[]= [];
 
   issueForm = new FormGroup<IssueForm>({
     title: new FormControl('', { nonNullable: true, validators: [Validators.minLength(4), Validators.required] }),
@@ -26,6 +28,12 @@ export class IssueReportComponent {
   })
 
   constructor(private issueService: IssuesService) {}
+
+  ngOnInit(): void {
+    this.issueForm.controls.title.valueChanges.subscribe(title => {
+      this.suggestions = this.issueService.getSuggestions(title);
+    });
+  }
 
   addIssue() {
     if(this.issueForm?.invalid) {

@@ -1,4 +1,3 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Component, OnInit } from '@angular/core';
 import { IssuesService } from '../../services/issues.service';
 import { Issue } from '../../model/issue';
