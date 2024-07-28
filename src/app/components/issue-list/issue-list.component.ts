@@ -17,6 +17,7 @@ export class IssueListComponent implements OnInit {
 
   issues: Issue[] = [];
   selectedIssue: Issue | null = null;
+  issueToEdit: Issue | null = null;
   showReportIssue = false;
 
   constructor(private issuesService: IssuesService) {}
@@ -31,10 +32,17 @@ export class IssueListComponent implements OnInit {
 
   onCloseReport() {
     this.showReportIssue = false;
+    this.issueToEdit = null;
     this.getPendingIssues();
   }
 
+  onEdit(issue: Issue) {
+    this.issueToEdit = issue;
+    this.showReportIssue = true;
+  }
+
   onConfirm(confirmed: boolean) {
+    console.log('confirm called: ', confirmed);
     if(confirmed && this.selectedIssue) {
       this.issuesService.completeIssue(this.selectedIssue);
       this.getPendingIssues();

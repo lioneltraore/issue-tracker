@@ -20,6 +20,13 @@ export class IssuesService {
     this.issues.push(issue);
   }
 
+  updateIssue(issue: Issue) {
+    console.log('updated issue: ', issue);
+    const updatedArray = this.issues.map(item => item.issueNo === issue.issueNo ? ({...issue}) : item);
+    this.issues = [...updatedArray];
+    console.log('updated array: ', this.issues);
+  }
+
   completeIssue(issue: Issue) {
     const selectedIssue: Issue = {
       ...issue,
